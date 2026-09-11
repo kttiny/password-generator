@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<title>Генератор паролей</title>
+<style>
+  body { font-family: system-ui, sans-serif; max-width: 480px; margin: 60px auto; padding: 20px; background: #f4f4f8; }
+  h1 { color: #222; }
+  .box { background: #fff; padding: 24px; border-radius: 12px; box-shadow: 0 4px 16px rgba(0,0,0,.08); }
+  input[type=number] { width: 70px; padding: 6px; }
+  button { padding: 10px 18px; background: #4a6cf7; color: #fff; border: 0; border-radius: 8px; cursor: pointer; font-size: 15px; }
+  button:hover { background: #3a5cd7; }
+  #out { margin-top: 18px; font-family: monospace; font-size: 18px; word-break: break-all; background: #eee; padding: 14px; border-radius: 8px; min-height: 24px; }
+  label { display: block; margin: 10px 0; }
+</style>
+</head>
+<body>
+<div class="box">
+  <h1>Генератор паролей</h1>
+  <label>Длина: <input type="number" id="len" value="16" min="4" max="64"></label>
+  <label><input type="checkbox" id="upper" checked> Заглавные</label>
+  <label><input type="checkbox" id="digits" checked> Цифры</label>
+  <label><input type="checkbox" id="symbols" checked> Символы</label>
+  <button onclick="generate()">Сгенерировать</button>
+  <div id="out">—</div>
+</div>
+<script>
+function generate() {
+  const len = +document.getElementById('len').value;
+  let chars = 'abcdefghijklmnopqrstuvwxyz';
+  if (document.getElementById('upper').checked) chars += 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+  if (document.getElementById('digits').checked) chars += '0123456789';
+  if (document.getElementById('symbols').checked) chars += '!@#$%^&*()_+-=[]{}';
+  let pwd = '';
+  for (let i = 0; i < len; i++) {
+    pwd += chars[Math.floor(Math.random() * chars.length)];
+  }
+  document.getElementById('out').textContent = pwd;
+}
+generate();
+</script>
+</body>
+</html>
